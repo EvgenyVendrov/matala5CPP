@@ -1,5 +1,4 @@
 #pragma once
-using std::string;
 namespace itertools
 {
 template <class T, class P>
@@ -13,7 +12,7 @@ class chain
         U _secondIT;
 
     public:
-        iterator(U firstIT, S secIT) : _firstIT(firstIT), _secondIT(secIT) {}
+        iterator(S firstIT, U secIT) : _firstIT(firstIT), _secondIT(secIT) {}
 
         // decltype(*_firstIT) &operator*()
         // {
