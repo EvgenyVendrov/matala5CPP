@@ -166,6 +166,47 @@ int main()
             .CHECK_EQUAL(zipChainProductTest, zipChainProductTestExpected);
         testcase.setname("product - zip & zip test")
             .CHECK_EQUAL(zipZipProductTest, zipZipProductTestExpected);
+
+        //********************testing powerset class********************
+
+        string intRangeTest = "", intRangeTestExp = "{}{1}{2}{1,2}{3}{1,3}{2,3}{1,2,3}";
+        string chainInt = "", chainIntExp = "{}{1}{2}{1,2}{3}{1,3}{2,3}{1,2,3}{4}{1,4}{2,4}{1,2,4}{1,3,4}{3,4}{2,3,4}{1,2,3,4}";
+        string twoStringsChained = "", twoStringsChainedExp = "{}{a}{b}{a,b}{z}{a,z}{b,z}{a,b,z}";
+        string zippedStringWithRange = "", zippedStringWithRangeExp = "{}{1}{2}{1,2}{a}{1,a}{2,a}{1,2,a}{b}{1,b}{2,b}{1,2,b}{a,b}{1,a,b}{2,a,b}{1,2,a,b}{c}{1,c}{2,c}{1,2,c}{a,c}{b,c}{1,2,a,c}{1,2,b,c}{1,2,a,b,c}";
+        string productOfStringAndNumber = "", productOfStringAndNumberExp = "{}{a,1}{a,2}{a,1 a,2}{b,1}{a,1 b,1}{a,2 b,1}{a,1 a,2 b,1}{b,2}{a,1 b,2}{a,2 b2}{b,1 b,2}{a,1 a,2 b,2}{a,1 b,1 b,2}{a,2 b,1 b,2}{a,1 a,2 b,1 b,2}";
+
+        for (auto subset : powerset(range(1, 4)))
+        {
+            intRangeTest += to_string(subset);
+        }
+        for (auto subset : powerset(chain(range(1, 3), range(3, 5))))
+        {
+            chainInt += to_string(subset);
+        }
+        for (auto subset : powerset(chain(string("ab"), string("z"))))
+        {
+            twoStringsChained += subset;
+        }
+        for (auto subset : powerset(zip(range(1,3),string("abc"))))
+        {
+            zippedStringWithRange += to_string(subset);
+        }
+        for (auto subset :powerset(product(string("ab"),range('a','c'))))
+        {
+            productOfStringAndNumber += to_string(subset);
+        }
+
+        testcase.setname("powerset - int rangetest")
+            .CHECK_EQUAL(intRangeTest, intRangeTestExp);
+        testcase.setname("powerset - double & string mixed test with chain")
+            .CHECK_EQUAL(chainInt, chainIntExp);
+        testcase.setname("powerset - string & string chained test")
+            .CHECK_EQUAL(twoStringsChained, twoStringsChainedExp);
+        testcase.setname("powerset - string & number range in a zip test")
+            .CHECK_EQUAL(zippedStringWithRange, zippedStringWithRangeExp);
+        testcase.setname("powerset - string & number in a product test")
+            .CHECK_EQUAL(productOfStringAndNumber, productOfStringAndNumberExp);
+
         grade = testcase.grade();
     }
     else

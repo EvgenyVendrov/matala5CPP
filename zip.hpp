@@ -65,7 +65,7 @@ public:
     auto begin()
     {
         return this->_arg1.begin();
-    } // iteratable object    }
+    }
 
     auto end()
     {
